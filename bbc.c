@@ -22,7 +22,8 @@ void print_bitboard(U64 bitboard)
             // convert file and rank into square index
             int square = rank * 8 + file;
 
-            printf("%d ", square);
+            // To show the presence of a piece, we print 1 else 0
+            printf("%d ", (bitboard & (1ULL << square) ? 1 : 0));
         }
 
         // print new line every rank
