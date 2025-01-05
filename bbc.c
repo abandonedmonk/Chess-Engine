@@ -16,6 +16,7 @@
 // print bitboard
 void print_bitboard(U64 bitboard)
 {
+    printf("\n");
     // loop over board ranks
     for (int rank = 0; rank < 8; rank++)
     {
@@ -25,6 +26,12 @@ void print_bitboard(U64 bitboard)
             // convert file and rank into square index
             int square = rank * 8 + file;
 
+            // print ranks
+            if (!file)
+            {
+                printf("  %d   ", 8 - rank);
+            }
+
             // To show the presence of a piece, we print 1 else 0
             printf("%d ", get_bit(bitboard, square) ? 1 : 0);
         }
@@ -32,6 +39,7 @@ void print_bitboard(U64 bitboard)
         // print new line every rank
         printf("\n");
     }
+    printf("\n      a b c d e f g h \n");
 }
 
 /***************************************\
