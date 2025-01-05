@@ -91,8 +91,9 @@ enum
 \***************************************/
 
 // set/get/pop macros
-#define get_bit(bb, sq) (bb & (1ULL << sq))
-#define set_bit(bb, sq) (bb |= (1ULL << sq))
+#define get_bit(bb, sq) (bb & (1ULL << sq))                        // To show the presence of a piece
+#define set_bit(bb, sq) (bb |= (1ULL << sq))                       // To set the presence of a piece
+#define pop_bit(bb, sq) (get_bit(bb, sq) ? bb ^= (1ULL << sq) : 0) // To remove the presence of a piece
 
 // print bitboard
 void print_bitboard(U64 bitboard)
@@ -138,12 +139,12 @@ int main()
     U64 bitboard = 0ULL;
 
     set_bit(bitboard, e4);
+    set_bit(bitboard, a4);
+    set_bit(bitboard, e5);
     print_bitboard(bitboard);
 
-    // for (int rank = 8; rank >= 1; rank--)
-    // {
-    //     printf("\"a%d\", \"b%d\", \"c%d\", \"d%d\", \"e%d\", \"f%d\", \"g%d\", \"h%d\"\n", rank, rank, rank, rank, rank, rank, rank, rank);
-    // }
+    pop_bit(bitboard, e4);
+    print_bitboard(bitboard);
 
     return 0;
 }
