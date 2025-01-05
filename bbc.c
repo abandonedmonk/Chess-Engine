@@ -10,6 +10,9 @@
 =========================================
 \***************************************/
 
+// set/get/pop macros
+#define get_bit(bb, sq) (bb & (1ULL << sq))
+
 // print bitboard
 void print_bitboard(U64 bitboard)
 {
@@ -23,7 +26,7 @@ void print_bitboard(U64 bitboard)
             int square = rank * 8 + file;
 
             // To show the presence of a piece, we print 1 else 0
-            printf("%d ", (bitboard & (1ULL << square) ? 1 : 0));
+            printf("%d ", get_bit(bitboard, square) ? 1 : 0);
         }
 
         // print new line every rank
