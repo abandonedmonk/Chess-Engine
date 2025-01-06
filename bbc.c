@@ -148,6 +148,23 @@ void print_bitboard(U64 bitboard)
 =========================================
 \***************************************/
 
+/*
+    not A file
+  8   0 1 1 1 1 1 1 1
+  7   0 1 1 1 1 1 1 1
+  6   0 1 1 1 1 1 1 1
+  5   0 1 1 1 1 1 1 1
+  4   0 1 1 1 1 1 1 1
+  3   0 1 1 1 1 1 1 1
+  2   0 1 1 1 1 1 1 1
+  1   0 1 1 1 1 1 1 1
+
+      a b c d e f g h
+*/
+
+// Not "A" file constant
+U64 not_a_file = 0ULL;
+
 // pawn attacks table [side][square]
 U64 pawn_attacks[2][64];
 
@@ -166,7 +183,7 @@ U64 mask_pawn_attacks(int square, int side)
     else // Black pawns
     {
     }
-    print_bitboard(attacks);
+    // print_bitboard(attacks);
     return attacks; // return attack map!!
 }
 
@@ -179,6 +196,18 @@ U64 mask_pawn_attacks(int square, int side)
 int main()
 {
     mask_pawn_attacks(e4, white);
+
+    for (int rank = 0; rank < 8; rank++)
+    {
+        for (int file = 0; file < 8; file++)
+        {
+            int square = rank * 8 + file;
+            if (file)
+                set_bit(not_a_file, square);
+        }
+    }
+
+    print_bitboard(not_a_file);
 
     return 0;
 }
