@@ -5,7 +5,6 @@
 #define U64 unsigned long long
 
 // board square
-
 enum
 {
     a8,
@@ -72,6 +71,13 @@ enum
     f1,
     g1,
     h1
+};
+
+// sides to move (colours)
+enum
+{
+    white,
+    black
 };
 
 /*
@@ -141,6 +147,12 @@ void print_bitboard(U64 bitboard)
                 Attacks
 =========================================
 \***************************************/
+
+// pawn attacks table [side][square]
+U64 pawn_attacks[2][64];
+
+// generate pawn attacks
+U64 mask_pawn_attacks();
 
 /***************************************\
 =========================================
