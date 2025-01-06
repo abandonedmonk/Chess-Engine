@@ -152,7 +152,23 @@ void print_bitboard(U64 bitboard)
 U64 pawn_attacks[2][64];
 
 // generate pawn attacks
-U64 mask_pawn_attacks();
+U64 mask_pawn_attacks(int square, int side)
+{
+    U64 attacks = 0ULL;  // results attack bitboard
+    U64 bitboard = 0ULL; // piece bitboard
+
+    set_bit(bitboard, square); // set piece on board
+
+    if (!side) // White Pawns
+    {
+        attacks |= (bitboard >> 7);
+    }
+    else // Black pawns
+    {
+    }
+    print_bitboard(attacks);
+    return attacks; // return attack map!!
+}
 
 /***************************************\
 =========================================
@@ -162,15 +178,7 @@ U64 mask_pawn_attacks();
 
 int main()
 {
-    U64 bitboard = 0ULL;
-
-    set_bit(bitboard, e4);
-    set_bit(bitboard, a4);
-    set_bit(bitboard, e5);
-    print_bitboard(bitboard);
-
-    pop_bit(bitboard, e4);
-    print_bitboard(bitboard);
+    mask_pawn_attacks(e4, white);
 
     return 0;
 }
