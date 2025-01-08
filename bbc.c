@@ -214,13 +214,23 @@ U64 mask_pawn_attacks(int square, int side)
 
     set_bit(bitboard, square); // set piece on board
 
+    // Not capturing illegally
     if (!side) // White Pawns
     {
-        attacks |= (bitboard >> 7);
+        if ((bitboard >> 7) & not_a_file)
+            attacks |= (bitboard >> 7);
+        if ((bitboard >> 9) & not_h_file)
+            attacks |= (bitboard >> 9);
     }
     else // Black pawns
     {
+        if ((bitboard << 7) & not_h_file)
+            attacks |= (bitboard << 7);
+        if ((bitboard << 9) & not_a_file)
+            attacks |= (bitboard << 9);
     }
+
+    print_bitboard(attacks);
     return attacks; // return attack map!!
 }
 
@@ -232,18 +242,9 @@ U64 mask_pawn_attacks(int square, int side)
 
 int main()
 {
-    // mask_pawn_attacks(e4, white);
-    for (int rank = 0; rank < 8; rank++)
-    {
-        for (int file = 0; file < 8; file++)
-        {
-            int square = rank * 8 + file;
-            // if (file > 1)
-            //     set_bit(not_ab_file, square);
-        }
-    }
+    mask_pawn_attacks(a4, black);
 
-    print_bitboard(not_ab_file);
+    // print_bitboard(not_ab_file);
 
     return 0;
 }
