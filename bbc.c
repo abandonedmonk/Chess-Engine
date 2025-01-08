@@ -207,7 +207,7 @@ const U64 not_ab_file = 18229723555195321596ULL; // Not "HG" file constant
 U64 pawn_attacks[2][64];
 
 // generate pawn attacks
-U64 mask_pawn_attacks(int square, int side)
+U64 mask_pawn_attacks(int side, int square)
 {
     U64 attacks = 0ULL;  // results attack bitboard
     U64 bitboard = 0ULL; // piece bitboard
@@ -234,6 +234,15 @@ U64 mask_pawn_attacks(int square, int side)
     return attacks; // return attack map!!
 }
 
+// init leaper attacks
+void init_leaper_attacks()
+{
+    for (int square = 0; square < 64; square++)
+    {
+        pawn_attacks[white][square] = mask_pawn_attacks(white, square);
+        pawn_attacks[black][square] = mask_pawn_attacks(black, square);
+    }
+}
 /***************************************\
 =========================================
             Main Function
