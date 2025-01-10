@@ -218,6 +218,7 @@ U64 mask_pawn_attacks(int side, int square)
     set_bit(bitboard, square); // set piece on board
 
     // Not capturing illegally
+    // Generate Pawn Attacks
     if (!side) // White Pawns
     {
         if ((bitboard >> 7) & not_a_file)
@@ -234,6 +235,20 @@ U64 mask_pawn_attacks(int side, int square)
     }
 
     print_bitboard(attacks);
+    return attacks; // return attack map!!
+}
+
+// generate knight attacks
+U64 mask_knight_attacks(int square)
+{
+    U64 attacks = 0ULL;  // results attack bitboard
+    U64 bitboard = 0ULL; // piece bitboard
+
+    set_bit(bitboard, square); // set piece on board
+
+    // Generate Knight Attacks
+    attacks |= (bitboard >> 17);
+
     return attacks; // return attack map!!
 }
 
@@ -254,9 +269,10 @@ void init_leaper_attacks()
 
 int main()
 {
-    mask_pawn_attacks(a4, black);
+    // mask_pawn_attacks(a4, black);
+    init_leaper_attacks();
 
-    // print_bitboard(not_ab_file);
+    print_bitboard(mask_knight_attacks(e4));
 
     return 0;
 }
