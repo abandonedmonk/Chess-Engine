@@ -206,6 +206,9 @@ const U64 not_ab_file = 18229723555195321596ULL; // Not "HG" file constant
 // pawn attacks table [side][square]
 U64 pawn_attacks[2][64];
 
+// knight attacks table [square]
+U64 knight_attacks[64];
+
 // generate pawn attacks
 U64 mask_pawn_attacks(int side, int square)
 {
