@@ -247,7 +247,8 @@ U64 mask_knight_attacks(int square)
     set_bit(bitboard, square); // set piece on board
 
     // Generate Knight Attacks
-    attacks |= (bitboard >> 17);
+    if ((bitboard >> 17) & not_h_file)
+        attacks |= (bitboard >> 17);
 
     return attacks; // return attack map!!
 }
@@ -270,9 +271,9 @@ void init_leaper_attacks()
 int main()
 {
     // mask_pawn_attacks(a4, black);
-    init_leaper_attacks();
+    // init_leaper_attacks();
 
-    print_bitboard(mask_knight_attacks(e4));
+    print_bitboard(mask_knight_attacks(b4));
 
     return 0;
 }
