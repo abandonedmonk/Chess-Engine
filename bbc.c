@@ -276,6 +276,8 @@ void init_leaper_attacks()
     {
         pawn_attacks[white][square] = mask_pawn_attacks(white, square);
         pawn_attacks[black][square] = mask_pawn_attacks(black, square);
+
+        knight_attacks[square] = mask_knight_attacks(square);
     }
 }
 /***************************************\
@@ -286,10 +288,13 @@ void init_leaper_attacks()
 
 int main()
 {
-    // mask_pawn_attacks(a4, black);
-    // init_leaper_attacks();
+    init_leaper_attacks();
+    for (int i = 0; i < 64; i++)
+    {
+        print_bitboard(knight_attacks[i]);
+    }
 
-    print_bitboard(mask_knight_attacks(a7));
+    // print_bitboard(mask_knight_attacks(a7));
 
     return 0;
 }
