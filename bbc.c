@@ -101,7 +101,6 @@ enum
 #define get_bit(bb, sq) (bb & (1ULL << sq))                        // To show the presence of a piece
 #define set_bit(bb, sq) (bb |= (1ULL << sq))                       // To set the presence of a piece
 #define pop_bit(bb, sq) (get_bit(bb, sq) ? bb ^= (1ULL << sq) : 0) // To remove the presence of a piece
-
 /***************************************\
 =========================================
             Input/Output
@@ -140,6 +139,12 @@ void print_bitboard(U64 bitboard)
 
     // print bitboard as unsigned decimal number
     printf("      Bitboard: %llud \n \n", bitboard);
+}
+
+// print the position of the piece as 'a1'
+void print_piece_position(int square)
+{
+    printf("Piece Position: %c%d \n", 'a' + ((square) % 8), (square) / 8 + 1);
 }
 
 /***************************************\
@@ -350,12 +355,12 @@ void init_leaper_attacks()
 int main()
 {
     init_leaper_attacks();
-
-    // for (int square = 0; square < 64; square++)
-    // {
-    //     print_bitboard(king_attacks[square]);
-    // }
-    print_bitboard(mask_bishop_attacks(d4));
+    for (int square = 0; square < 64; square++)
+    {
+        print_piece_position(square);
+        print_bitboard(mask_bishop_attacks(square));
+    }
+    // print_bitboard(mask_bishop_attacks(d4));
 
     return 0;
 }
