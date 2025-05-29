@@ -332,6 +332,28 @@ U64 mask_bishop_attacks(int square)
     return attacks; // return attack map
 }
 
+U64 mask_rook_attacks(int square)
+{
+    U64 attacks = 0ULL; // result attacks bitboard
+    int r, f;           // init ranks and files
+
+    // init target rank and files
+    int tr = square / 8;
+    int tf = square % 8;
+
+    // mask relevant rook occupancy bits
+    for (r = tr + 1; r <= 6; r++)
+        attacks |= (1ULL << (r * 8 + tf));
+    for (r = tr - 1; r >= 1; r--)
+        attacks |= (1ULL << (r * 8 + tf));
+    for (f = tf + 1; f <= 6; f++)
+        attacks |= (1ULL << (tr * 8 + f));
+    for (f = tf - 1; f >= 1; f--)
+        attacks |= (1ULL << (tr * 8 + f));
+
+    return attacks; // return attack map
+}
+
 // init leaper attacks
 void init_leaper_attacks()
 {
@@ -358,9 +380,9 @@ int main()
     for (int square = 0; square < 64; square++)
     {
         print_piece_position(square);
-        print_bitboard(mask_bishop_attacks(square));
+        print_bitboard(mask_rook_attacks(square));
     }
-    // print_bitboard(mask_bishop_attacks(d4));
+    // print_bitboard(mask_rook_attacks(d4));
 
     return 0;
 }
