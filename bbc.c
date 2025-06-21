@@ -418,15 +418,38 @@ U64 rook_attacks_on_the_fly(int square, U64 block)
     int tf = square % 8;
 
     // mask relevant rook occupancy bits
-    for (r = tr + 1; r <= 7 r++)
+    for (r = tr + 1; r <= 7; r++)
+    {
         attacks |= (1ULL << (r * 8 + tf));
+        if ((1ULL << (r * 8 + tf)) & block)
+        {
+            break;
+        }
+    }
     for (r = tr - 1; r >= 0; r--)
+    {
         attacks |= (1ULL << (r * 8 + tf));
+        if ((1ULL << (r * 8 + tf)) & block)
+        {
+            break;
+        }
+    }
     for (f = tf + 1; f <= 7; f++)
+    {
         attacks |= (1ULL << (tr * 8 + f));
+        if ((1ULL << (tr * 8 + f)) & block)
+        {
+            break;
+        }
+    }
     for (f = tf - 1; f >= 0; f--)
+    {
         attacks |= (1ULL << (tr * 8 + f));
-
+        if ((1ULL << (tr * 8 + f)) & block)
+        {
+            break;
+        }
+    }
     return attacks; // return attack map
 }
 
@@ -461,10 +484,10 @@ int main()
     // print_bitboard(mask_rook_attacks(d4));
 
     U64 block = 0ULL;
-    // set_bit(block, a1);
-    // set_bit(block, g7);
-    // set_bit(block, e3);
-    // set_bit(block, b6);
+    set_bit(block, d7);
+    set_bit(block, d2);
+    set_bit(block, b4);
+    set_bit(block, g4);
     print_bitboard(block);
 
     print_bitboard(rook_attacks_on_the_fly(d4, block));
