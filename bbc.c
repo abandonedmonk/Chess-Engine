@@ -356,6 +356,7 @@ U64 mask_rook_attacks(int square)
 }
 
 // generate bishop attacks on the fly
+// it blocks the position till where the bishop could move
 U64 bishop_attacks_on_the_fly(int square, U64 block)
 {
     U64 attacks = 0ULL; // result attacks bitboard
@@ -367,16 +368,40 @@ U64 bishop_attacks_on_the_fly(int square, U64 block)
 
     // generate bishop attacks
     for (r = tr + 1, f = tf + 1; r <= 7 && f <= 7; r++, f++)
+    {
         attacks |= (1ULL << (r * 8 + f));
+        if ((1ULL << (r * 8 + f)) && block)
+        {
+            break;
+        }
+    }
 
     for (r = tr - 1, f = tf + 1; r >= 0 && f <= 7; r--, f++)
+    {
         attacks |= (1ULL << (r * 8 + f));
+        if ((1ULL << (r * 8 + f)) && block)
+        {
+            break;
+        }
+    }
 
     for (r = tr + 1, f = tf - 1; r <= 7 && f >= 0; r++, f--)
+    {
         attacks |= (1ULL << (r * 8 + f));
+        if ((1ULL << (r * 8 + f)) && block)
+        {
+            break;
+        }
+    }
 
     for (r = tr - 1, f = tf - 1; r >= 0 && f >= 0; r--, f--)
+    {
         attacks |= (1ULL << (r * 8 + f));
+        if ((1ULL << (r * 8 + f)) && block)
+        {
+            break;
+        }
+    }
 
     return attacks; // return attack map
 }
@@ -417,7 +442,7 @@ int main()
     set_bit(block, b2);
     print_bitboard(block);
 
-    print_bitboard(bishop_attacks_on_the_fly(d4, 0ULL));
+    print_bitboard(bishop_attacks_on_the_fly(d4, block));
 
     return 0;
 }
