@@ -101,6 +101,24 @@ enum
 #define get_bit(bb, sq) (bb & (1ULL << sq))                        // To show the presence of a piece
 #define set_bit(bb, sq) (bb |= (1ULL << sq))                       // To set the presence of a piece
 #define pop_bit(bb, sq) (get_bit(bb, sq) ? bb ^= (1ULL << sq) : 0) // To remove the presence of a piece
+
+// count bits within a bit board
+static inline int count_bits(U64 bitboard)
+{
+    // bit counter
+    int counter = 0;
+
+    // consecutively reset least significant first bit
+    while (bitboard)
+    {
+        counter++;
+
+        // reset least significant first bit
+        bitboard &= bitboard - 1; // -1 just takes out the last one, the '&' operation removes it cuz of 0+1=0
+    }
+
+    return counter;
+}
 /***************************************\
 =========================================
             Input/Output
@@ -489,8 +507,9 @@ int main()
     set_bit(block, b4);
     set_bit(block, g4);
     print_bitboard(block);
+    printf("Bit Count: %d \n", count_bits(block));
 
-    print_bitboard(rook_attacks_on_the_fly(d4, block));
+    // print_bitboard(rook_attacks_on_the_fly(d4, block));
 
     return 0;
 }
