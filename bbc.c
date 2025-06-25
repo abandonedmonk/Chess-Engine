@@ -183,7 +183,7 @@ void print_bitboard(U64 bitboard)
 // print the position of the piece as 'a1'
 void print_piece_position(int square)
 {
-    printf("Piece Position: %c%d \n", 'a' + ((square) % 8), (square) / 8 + 1);
+    printf("Piece Position: %c%d \n", 'a' + ((square) % 8), 8 - (square) / 8);
 }
 
 /***************************************\
@@ -527,13 +527,12 @@ int main()
     set_bit(block, d2);
     set_bit(block, b4);
     set_bit(block, g4);
-    print_bitboard(block);
+    // print_bitboard(block);
     // printf("index: %d \n", get_ls1b_index(block));
-    get_ls1b_index(block);
+    // get_ls1b_index(block);
     // test bitboard
     U64 test = 0ULL;
     set_bit(test, get_ls1b_index(block));
-
     print_bitboard(test);
 
     return 0;
