@@ -80,6 +80,9 @@ enum
     black
 };
 
+// declaring print_piece_position func to avoid "implicit declaration of function" ERROR
+void print_piece_position(int square);
+
 /*
 "a8", "b8", "c8", "d8", "e8", "f8", "g8", "h8"
 "a7", "b7", "c7", "d7", "e7", "f7", "g7", "h7"
@@ -127,7 +130,9 @@ static inline int get_ls1b_index(U64 bitboard)
     if (bitboard)
     {
         // count trailing bits before lsb
-        return count_bits((bitboard & -bitboard) - 1);
+        int index_number = count_bits((bitboard & -bitboard) - 1);
+        print_piece_position(index_number);
+        return index_number;
     }
     else
     {
@@ -523,10 +528,13 @@ int main()
     set_bit(block, b4);
     set_bit(block, g4);
     print_bitboard(block);
-    // printf("Bit Count: %d \n", count_bits(block));
+    // printf("index: %d \n", get_ls1b_index(block));
+    get_ls1b_index(block);
+    // test bitboard
+    U64 test = 0ULL;
+    set_bit(test, get_ls1b_index(block));
 
-    // print_bitboard(rook_attacks_on_the_fly(d4, block));
-    printf("index: %d \n", get_ls1b_index(block));
+    print_bitboard(test);
 
     return 0;
 }
