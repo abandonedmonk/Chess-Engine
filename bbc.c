@@ -119,6 +119,22 @@ static inline int count_bits(U64 bitboard)
 
     return counter;
 }
+
+// get least significant first bit index
+static inline int get_ls1b_index(U64 bitboard)
+{
+    // make sure bitboard is not 0
+    if (bitboard)
+    {
+        // count trailing bits before lsb
+        return count_bits((bitboard & -bitboard) - 1);
+    }
+    else
+    {
+        return -1; // illegal index
+    }
+}
+
 /***************************************\
 =========================================
             Input/Output
@@ -510,7 +526,7 @@ int main()
     // printf("Bit Count: %d \n", count_bits(block));
 
     // print_bitboard(rook_attacks_on_the_fly(d4, block));
-    print_bitboard(block & -block);
+    printf("index: %d \n", get_ls1b_index(block));
 
     return 0;
 }
