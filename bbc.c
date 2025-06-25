@@ -507,9 +507,10 @@ int main()
     set_bit(block, b4);
     set_bit(block, g4);
     print_bitboard(block);
-    printf("Bit Count: %d \n", count_bits(block));
+    // printf("Bit Count: %d \n", count_bits(block));
 
     // print_bitboard(rook_attacks_on_the_fly(d4, block));
+    print_bitboard(block & -block);
 
     return 0;
 }
